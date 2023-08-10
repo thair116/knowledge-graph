@@ -40,15 +40,15 @@
       "Properties": {
         "VpcConfig": {
           "SecurityGroupIds": [
-              "sg-06760111ea7d9cc5b"
+            "sg-06760111ea7d9cc5b"
           ],
           "SubnetIds": [
-              "subnet-09765c213b8a1d388",
-              "subnet-05973a4590628660d",
-              "subnet-03b6b414520d43b03",
-              "subnet-0091faa0f2dd66c15"
+            "subnet-09765c213b8a1d388",
+            "subnet-05973a4590628660d",
+            "subnet-03b6b414520d43b03",
+            "subnet-0091faa0f2dd66c15"
           ]
-       },
+        },
         "Code": {
           "S3Bucket": {
             "Ref": "deploymentBucketName"
