@@ -58,7 +58,39 @@ app.get('/item/*', function(req, res) {
 * Example post method *
 ****************************/
 
-app.post('/item', function(req, res) {
+app.post('/query', async function(req, res) {
+
+  const cypherQuery = `
+        MATCH (n)
+        RETURN n
+        LIMIT 10;
+    `;
+
+    const url = 'http://your-neptune-endpoint:8182/sparql';
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `query=${encodeURIComponent(cypherQuery)}&queryType=cypher`
+    };
+
+    try {
+        const response = await fetch(url, params);
+        const data = await response.text();
+
+        return {
+            statusCode: 200,
+            body: data
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: `Error: ${error.message}`
+        };
+    }
+
+
   // Add your code here
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
