@@ -62,6 +62,7 @@ app.post('/query', async function(req, res, next) {
         const data = await response.json();
 
         res.json({success: 'post call succeed!', body: data})
+        return
     } catch (error) {
       next(err)
       // res.json({success: 'post call succeed!', url: req.url, body: req.body})
