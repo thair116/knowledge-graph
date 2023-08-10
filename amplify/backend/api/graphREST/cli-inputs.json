@@ -13,6 +13,19 @@
           "delete"
         ]
       }
+    },
+    "/translate": {
+      "name": "/translate",
+      "lambdaFunction": "openai",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

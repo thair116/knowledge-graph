@@ -17,7 +17,12 @@
         "graphAPI": {
           "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
-          "s3Key": "amplify-builds/graphAPI-58687373334a742f5544-build.zip"
+          "s3Key": "amplify-builds/graphAPI-586b732f2b6b2f6c4359-build.zip"
+        },
+        "openai": {
+          "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
+          "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
+          "s3Key": "amplify-builds/openai-4773782f36725765575a-build.zip"
         }
       },
       "auth": {

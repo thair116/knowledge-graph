@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "graphAPI"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "openai"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -47,6 +55,12 @@
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "openai": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -71,6 +85,30 @@
         {
           "category": "function",
           "resourceName": "graphAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_openai_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openai"
+        }
+      ]
+    },
+    "AMPLIFY_function_openai_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openai"
+        }
+      ]
+    },
+    "AMPLIFY_function_openai_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openai"
         }
       ]
     }

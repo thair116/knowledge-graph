@@ -20,6 +20,8 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
+
+const aws = require('aws-sdk');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -38,39 +40,68 @@ app.use(function (req, res, next) {
 });
 
 
-app.post('/query', async function (req, res, next) {
+app.post('/translate/query', async function (req, res, next) {
+  console.log('start')
+
+  const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: ["OPENAI_KEY"].map(secretName => process.env[secretName]),
+    WithDecryption: true,
+  })
+  .promise();
+  
+
+  console.log('start2')
+  console.log(Parameters)
+
+
+  const result = {};
+  Parameters.forEach(item => {
+    const key = item.Name.split('AMPLIFY_openai_').pop();
+    result[key] = item.Value;
+  });
+
+  console.log('start3')
+  console.log(result)
+
+
+  const { OPEN_AI_KEY } = result
+
+  console.log(OPEN_AI_KEY)
+
+
   const { body } = req;
   console.log(body)
 
-  const cypherQuery = `
-        MATCH (n)
-        RETURN n
-        LIMIT 10;
-    `;
+  // const cypherQuery = `
+  //       MATCH (n)
+  //       RETURN n
+  //       LIMIT 10;
+  //   `;
 
-  const url = 'https://harmonic-instance-1.cbycqrjfsmkf.us-west-2.neptune.amazonaws.com:8182/openCypher';
-  const params = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: `query=${encodeURIComponent(cypherQuery)}&queryType=cypher`
-  };
+  // const url = 'https://harmonic-instance-1.cbycqrjfsmkf.us-west-2.neptune.amazonaws.com:8182/openCypher';
+  // const params = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   body: `query=${encodeURIComponent(cypherQuery)}&queryType=cypher`
+  // };
 
-  try {
-    const response = await fetch(url, params);
-    const data = await response.json();
+  // try {
+  //   const response = await fetch(url, params);
+  //   const data = await response.json();
 
-    res.json({ success: 'post call succeed!', body: data })
-    return
-  } catch (error) {
-    next(err)
-    // res.json({success: 'post call succeed!', url: req.url, body: req.body})
-    //   return {
-    //       statusCode: 500,
-    //       body: `Error: ${error.message}`
-    //   };
-  }
+  //   res.json({ success: 'post call succeed!', body: data })
+  //   return
+  // } catch (error) {
+  //   next(err)
+  //   // res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  //   //   return {
+  //   //       statusCode: 500,
+  //   //       body: `Error: ${error.message}`
+  //   //   };
+  // }
 
 
   // Add your code here
