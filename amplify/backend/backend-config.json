@@ -8,6 +8,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_graphAPI_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_graphAPI_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "graphAPI"
+        }
+      ]
+    },
     "AMPLIFY_function_graphAPI_secretsPathAmplifyAppId": {
       "usedBy": [
         {

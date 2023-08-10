@@ -14,7 +14,9 @@
     "categories": {
       "function": {
         "graphAPI": {
-          "secretsPathAmplifyAppId": "dm58qe2yjr7lm"
+          "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
+          "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
+          "s3Key": "amplify-builds/graphAPI-484b6444536d74574578-build.zip"
         }
       }
     }
