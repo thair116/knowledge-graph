@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-harmonictakehome-dev-203047-authRole",
+      "UnauthRoleArn": "arn:aws:iam::586702338695:role/amplify-harmonictakehome-dev-203047-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::586702338695:role/amplify-harmonictakehome-dev-203047-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
+      "UnauthRoleName": "amplify-harmonictakehome-dev-203047-unauthRole",
+      "StackName": "amplify-harmonictakehome-dev-203047",
+      "StackId": "arn:aws:cloudformation:us-west-2:586702338695:stack/amplify-harmonictakehome-dev-203047/4d0b8d10-372e-11ee-82e9-06dac7d496ed",
+      "AmplifyAppId": "dm58qe2yjr7lm"
+    }
+  }
+}
