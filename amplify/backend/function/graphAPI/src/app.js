@@ -59,7 +59,7 @@ app.post('/query', async function(req, res, next) {
 
     try {
         const response = await fetch(url, params);
-        const data = await response.text();
+        const data = await response.json();
 
         res.json({success: 'post call succeed!', body: data})
     } catch (error) {
