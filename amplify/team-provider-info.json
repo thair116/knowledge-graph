@@ -18,6 +18,9 @@
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
           "s3Key": "amplify-builds/graphAPI-58687373334a742f5544-build.zip"
         }
+      },
+      "auth": {
+        "harmonictakehomeb2aee529": {}
       }
     }
   }
