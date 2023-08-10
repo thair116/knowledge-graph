@@ -22,7 +22,7 @@ See the License for the specific language governing permissions and limitations 
 
 
 
-
+const fetch = require('node-fetch');
 const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -40,25 +40,7 @@ app.use(function(req, res, next) {
 });
 
 
-/**********************
- * Example get method *
- **********************/
-
-app.get('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-app.get('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/query', async function(req, res) {
+app.post('/query', async function(req, res, next) {
 
   const cypherQuery = `
         MATCH (n)
@@ -66,7 +48,7 @@ app.post('/query', async function(req, res) {
         LIMIT 10;
     `;
 
-    const url = 'http://your-neptune-endpoint:8182/sparql';
+    const url = 'https://harmonic-instance-1.cbycqrjfsmkf.us-west-2.neptune.amazonaws.com:8182/openCypher';
     const params = {
         method: 'POST',
         headers: {
@@ -79,53 +61,19 @@ app.post('/query', async function(req, res) {
         const response = await fetch(url, params);
         const data = await response.text();
 
-        return {
-            statusCode: 200,
-            body: data
-        };
+        res.json({success: 'post call succeed!', body: data})
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: `Error: ${error.message}`
-        };
+      next(err)
+      // res.json({success: 'post call succeed!', url: req.url, body: req.body})
+      //   return {
+      //       statusCode: 500,
+      //       body: `Error: ${error.message}`
+      //   };
     }
 
 
   // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example delete method *
-****************************/
-
-app.delete('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.delete('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+  res.json({success: 'sholdnt be here'})
 });
 
 app.listen(3000, function() {
