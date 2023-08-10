@@ -1,0 +1,6 @@
+{
+  "lambdaLayers": [],
+  "secretNames": [
+    "OPEN_AI_KEY"
+  ]
+}

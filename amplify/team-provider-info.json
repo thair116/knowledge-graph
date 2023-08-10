@@ -10,6 +10,13 @@
       "StackName": "amplify-harmonictakehome-dev-203047",
       "StackId": "arn:aws:cloudformation:us-west-2:586702338695:stack/amplify-harmonictakehome-dev-203047/4d0b8d10-372e-11ee-82e9-06dac7d496ed",
       "AmplifyAppId": "dm58qe2yjr7lm"
+    },
+    "categories": {
+      "function": {
+        "graphAPI": {
+          "secretsPathAmplifyAppId": "dm58qe2yjr7lm"
+        }
+      }
     }
   }
 }
