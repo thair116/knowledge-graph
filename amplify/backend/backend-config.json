@@ -1,4 +1,20 @@
 {
+  "api": {
+    "graphREST": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "graphAPI"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "harmonictakehomeb2aee529": {
       "customAuth": false,

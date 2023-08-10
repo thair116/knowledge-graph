@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { QueryPage } from './components/QueryPage';
 import reportWebVitals from './reportWebVitals';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
@@ -19,7 +20,7 @@ root.render(
     <div className='h-screen w-screen flex items-center justify-center'>
     <Authenticator>
       {({ signOut, user }) => (
-        <App />
+        <QueryPage />
       )}
     </Authenticator>
     </div>
