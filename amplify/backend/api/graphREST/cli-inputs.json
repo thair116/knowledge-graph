@@ -26,6 +26,19 @@
           "delete"
         ]
       }
+    },
+    "/upload": {
+      "name": "/upload",
+      "lambdaFunction": "etl",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

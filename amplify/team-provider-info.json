@@ -23,6 +23,10 @@
           "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
           "s3Key": "amplify-builds/openai-754678416975656a574b-build.zip"
+        },
+        "etl": {
+          "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
+          "s3Key": "amplify-builds/etl-51756c724d2f6c793059-build.zip"
         }
       },
       "auth": {

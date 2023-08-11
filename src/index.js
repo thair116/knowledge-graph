@@ -20,7 +20,7 @@ root.render(
     <div className='bg-slate-900 h-screen w-screen flex items-center justify-center'> 
     <Authenticator>
       {({ signOut, user }) => (
-        <QueryPage />
+        <App />
       )}
     </Authenticator>
     </div>

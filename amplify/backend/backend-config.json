@@ -17,6 +17,14 @@
           ],
           "category": "function",
           "resourceName": "openai"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "etl"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -50,6 +58,11 @@
     }
   },
   "function": {
+    "etl": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "graphAPI": {
       "build": true,
       "dependsOn": [],
@@ -64,6 +77,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_etl_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "etl"
+        }
+      ]
+    },
+    "AMPLIFY_function_etl_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "etl"
+        }
+      ]
+    },
     "AMPLIFY_function_graphAPI_deploymentBucketName": {
       "usedBy": [
         {

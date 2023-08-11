@@ -1,23 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { QueryPage } from './components/QueryPage';
+import { UploadPage } from './components/UploadPage';
 
 function App() {
+
+  const [route, setRoute] = useState('query');
+
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className={"bg-blue-500 mx-2 py-2 px-4 rounded text-white"} onClick={() => setRoute('query')}>Query</button>
+      <button className={"bg-blue-500 mx-2 py-2 px-4 rounded text-white"} onClick={() => setRoute('upload')}>Upload</button>
+      { route === 'query' ? <QueryPage /> : <UploadPage />}
     </div>
   );
 }
