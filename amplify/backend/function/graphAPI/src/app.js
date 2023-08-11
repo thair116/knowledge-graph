@@ -40,6 +40,7 @@ app.use(function (req, res, next) {
 
 app.post('/query', async function (req, res, next) {
   const { body } = req;
+  const { query } = body;
   console.log(body)
 
   const cypherQuery = `
@@ -54,7 +55,7 @@ app.post('/query', async function (req, res, next) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `query=${encodeURIComponent(cypherQuery)}&queryType=cypher`
+    body: `query=${encodeURIComponent(query)}&queryType=cypher`
   };
 
   try {

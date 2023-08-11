@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { API } from 'aws-amplify';
+import { ResultDisplay } from './ResultDisplay';
 
 
 export const QueryPage = () => {
 
     const [queryValue, setQueryValue] = useState('')
+    const [results, setResults] = useState([])
+    const [queryTransformed, setQueryTransformed] = useState("")
 
     const handleClick = () => {
         makeQueryPost()
@@ -29,8 +32,13 @@ export const QueryPage = () => {
 
         console.log(response2)
 
+        const content = response2.content
+        const split = content.split('2.')
+        const query = split[1]
+        setQueryTransformed(query)
+
         
-        const data = { query: queryValue}
+        const data = { query}
         let path = '/query'
         let params = {
             body: data
@@ -44,6 +52,9 @@ export const QueryPage = () => {
         }
 
         console.log(response)
+        const { body } = response
+        const { results } = body
+        setResults(results)
         // const results = response.body
         // console.log(results)
 
@@ -57,6 +68,11 @@ export const QueryPage = () => {
                     <input className="bg-slate-800 mx-2 w-full px-1" type="text" value={queryValue} onChange={(e) => setQueryValue(e.target.value)} placeholder="Search..." />
                     <button onClick={handleClick} className='bg-blue-500 hover:bg-blue-600 transition py-2 px-4 rounded'>Search</button>
                 </div>
+                {queryTransformed && <div className='text-left bg-slate-800 m-4 p-4 rounded'>{queryTransformed}</div>}
+                {results.length > 0 && 
+                    <div className='bg-slate-800 m-4 p-4 rounded'>
+                        <ResultDisplay results={results} />
+                    </div> }
         </div>
 
     )

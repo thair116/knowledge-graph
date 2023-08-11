@@ -41,15 +41,17 @@ app.use(function (req, res, next) {
 
 
 app.post('/translate/query', async function (req, res, next) {
+  const { body } = req;
+
   console.log('start')
 
   const { Parameters } = await (new aws.SSM())
-  .getParameters({
-    Names: ["OPENAI_KEY"].map(secretName => process.env[secretName]),
-    WithDecryption: true,
-  })
-  .promise();
-  
+    .getParameters({
+      Names: ["OPENAI_KEY"].map(secretName => process.env[secretName]),
+      WithDecryption: true,
+    })
+    .promise();
+
 
   console.log('start2')
   console.log(Parameters)
@@ -65,13 +67,61 @@ app.post('/translate/query', async function (req, res, next) {
   console.log(result)
 
 
-  const { OPEN_AI_KEY } = result
+  const { OPENAI_KEY } = result
 
-  console.log(OPEN_AI_KEY)
+  const model = "gpt-4"
+  const system = `You are a text-to-code translator, focussed on graph traversal languages.
+  Your job is to convert plain text English queries into the opencypher graph traversal language.
+      Reason through it in two steps, first by converting it to a short hand form that
+      links together the primary entities via their relations. 
+      
+      The dataset includes the following entities
+      - Company. properties: company_id(integer), company_name(string)
+      - Person. properties: person_id(integer)
+      and the following relations
+      - acquired (company to company). properties: wasMerger(boolean)
+      - employed_at (person to company). properties: start_date(date), end_date(date)
+      
+      In your query, do not use any entity or relation other than precisely these.
+      Return an error explanation 
+      if the query includes entities or relations other than these.
+      
+      Be sure to get the notation correct, with the correct number and placement of periods, quotes, and parantheses.
+          
+      
+      Example:
+      Which Microsoft employees used to work at LinkedIn?
+      1. [company = Microsoft] -> employs  ->  ?  -> past work -> [company = LinkedIn]
+      2. MATCH (ms:company {company_name: "Microsoft"})<-[rel:employed_at]-(p:person)-[rel2:employed_at]->(li:company {company_name: "LinkedIn"})
+  WHERE rel.end_date IS NULL and rel2.end_date is not null
+  RETURN p.person_id
+  `
+  const { query }  = body
+  // const parsed = JSON.parse(body)
+  const messages = [{ "role": "system", "content": system }, { "role": "user", "content": query }]
+  console.log(query, messages)
 
+  const params_ = {
+    "temperature": 0.4,
+    model,
+    messages,
+  };
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_KEY}`
+    },
+    body: JSON.stringify(params_)
+  };
 
-  const { body } = req;
-  console.log(body)
+  const response = await fetch('https://api.openai.com/v1/chat/completions', requestOptions);
+  const data = await response.json();
+
+  console.log(data)
+  res.json({ success: 'done', content: data.choices[0].message.content })
+  return
+
 
   // const cypherQuery = `
   //       MATCH (n)
