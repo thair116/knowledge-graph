@@ -34,6 +34,11 @@ export const QueryPage = () => {
 
         const content = response2.content
         const split = content.split('2.')
+        if (split.length < 2) {
+            console.error('error in splitting')
+            setQueryTransformed(content)
+            return
+        }
         const query = split[1]
         setQueryTransformed(query)
 
@@ -53,8 +58,13 @@ export const QueryPage = () => {
 
         console.log(response)
         const { body } = response
-        const { results } = body
-        setResults(results)
+        const { results, code, detailedMessage } = body
+        if (code) {
+            setResults([{error: detailedMessage}])
+        } else {
+            setResults(results)
+        }
+        
         // const results = response.body
         // console.log(results)
 
