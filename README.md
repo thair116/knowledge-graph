@@ -5,37 +5,37 @@
 
 
 # My strategy 
-## The flow 
+### The flow 
 1. spec a solution
 2. build it end-to-end
 3. polish and document
 4. share for review 
 
-## The guidelines
+### The guidelines
 1. build it usable (deployable) and reusable (scalable) from the start
 2. spec from outside-in 
 4. invest proportional to our confidence
 
-# My Spec goals
+
+# The Spec
+### My Spec goals
 1. clarify what we know about the user?
 2. what features are we trying to provide?
 3. what is the interface?
 4. what components do we need to provide that? 
 5. what steps do we need to take to build those components?
 
-# The Spec
-
-## The user
+### The user
 - we know they are part of an investing firm but we don't know their role
     - are we serving an analyst who serves an LP? most likely the former, but that doesn't mean the LP wouldn't prefer to use it themselves if it was easy/quick enough. Plus if this reduces the need for analysts then it could be worth more $ 
 - we don't know their technical skill or how much time they would spend on a query 
 - we don't know their primary/secondary devices (desktop, mobile)
 
-## The features
+### The features
 - query a knowledge graph
 - update a knowledge graph 
 
-## The interfaces
+### The interfaces
 - human interface
     - web page 
         - mobile friendly, especially if we want to aim for LPs
@@ -43,7 +43,7 @@
     - API that we could open up to our customers 
     - this comes for free
 
-## The components
+### The components
 - a UI
     - we must provide a way for the user to tell us their query 
         options:
@@ -93,7 +93,7 @@
         - direct DB inserts
             - simpler to build and test 
 
-## Steps to build
+### Steps to build
 1. graph db
     1. pick a db, pick a query language
     2. scan the documentation
@@ -130,9 +130,9 @@
 - nodejs and python were used for coding languages
 
 # File map
-[UploadPage] - React component for reading a file and passing it to loader api 
-[loader](amplify/backend/function/etl/src/index.py) - python lambda that takes in json files in the format provided, converts each row to a Gremlin insert, then loads into Neptune DB
-[QueryPage](src/components/QueryPage.js) - React component for taking in a free text input and passing that to the transform api and then those results to the query api, displaying the response from each step
-[transform](amplify/backend/function/openai/src/app.js) - nodejs lambda that takes a free text input and converts it to Cypher query, by passing DB structure and query to GPT-4
-[query](amplify/backend/function/graphAPI/src/app.js) - nodejs lambda for proxying query calls to the Neptune DB
-[ResultDisplay] - React component for formatting the results
+- [UploadPage](src/components/UploadPage.js) - React component for reading a file and passing it to loader api 
+- [loader](amplify/backend/function/etl/src/index.py) - python lambda that takes in json files in the format provided, converts each row to a Gremlin insert, then loads into Neptune DB
+- [QueryPage](src/components/QueryPage.js) - React component for taking in a free text input and passing that to the transform api and then those results to the query api, displaying the response from each step
+- [transform](amplify/backend/function/openai/src/app.js) - nodejs lambda that takes a free text input and converts it to Cypher query, by passing DB structure and query to GPT-4
+- [query](amplify/backend/function/graphAPI/src/app.js) - nodejs lambda for proxying query calls to the Neptune DB
+- [ResultDisplay](src/components/ResultDisplay.js) - React component for formatting the results
