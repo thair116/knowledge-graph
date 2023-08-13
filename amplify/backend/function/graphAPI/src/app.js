@@ -25,6 +25,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
+
+const NEPTUNE_URL = 'https://harmonic-instance-1.cbycqrjfsmkf.us-west-2.neptune.amazonaws.com:8182/gremlin'
+
+
 // declare a new express app
 const app = express()
 app.use(bodyParser.json())
@@ -39,17 +43,12 @@ app.use(function (req, res, next) {
 
 
 app.post('/query', async function (req, res, next) {
-  const { body } = req;
-  const { query } = body;
-  console.log(body)
+  const query = req?.body?.query;
+  if (!query) {
+    res.json({ error: 'no query provided in the body' }) // set status code here
+    return
+  }
 
-  const cypherQuery = `
-        MATCH (n)
-        RETURN n
-        LIMIT 10;
-    `;
-
-  const url = 'https://harmonic-instance-1.cbycqrjfsmkf.us-west-2.neptune.amazonaws.com:8182/openCypher';
   const params = {
     method: 'POST',
     headers: {
@@ -59,23 +58,17 @@ app.post('/query', async function (req, res, next) {
   };
 
   try {
-    const response = await fetch(url, params);
+    const response = await fetch(NEPTUNE_URL, params);
     const data = await response.json();
 
     res.json({ success: 'post call succeed!', body: data })
     return
   } catch (error) {
     next(err)
-    // res.json({success: 'post call succeed!', url: req.url, body: req.body})
-    //   return {
-    //       statusCode: 500,
-    //       body: `Error: ${error.message}`
-    //   };
   }
 
-
   // Add your code here
-  res.json({ success: 'sholdnt be here' })
+  res.json({ error: 'failed to send to neptune' })
 });
 
 app.listen(3000, function () {
