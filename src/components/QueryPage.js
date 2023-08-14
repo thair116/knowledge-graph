@@ -7,7 +7,7 @@ const API_NAME = 'graphREST'
 export const QueryPage = () => {
     const [queryValue, setQueryValue] = useState('')
     const [queryTransformed, setQueryTransformed] = useState("")
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState(null)
     const [loading, setLoading] = useState('not')
 
     const handleClick = async () => {
@@ -61,6 +61,7 @@ export const QueryPage = () => {
 
         const { body } = response
         const { results, code, detailedMessage } = body
+        console.log(results)
 
         if (code) {
             setResults([{ error: detailedMessage }])
@@ -88,11 +89,11 @@ export const QueryPage = () => {
                     <div className='text-left bg-slate-800 m-4 p-4 rounded'>{queryTransformed}</div>
                 </>
             }
-            {results.length > 0 &&
+            {results !== null &&
                 <>
                     <h1 className='text-2xl m-2'>Results</h1>
                     <div className='bg-slate-800 m-4 p-4 rounded'>
-                        <ResultDisplay results={results} />
+                        { results.length !== 0 ? <ResultDisplay results={results} /> : "No results found" }
                     </div>
                 </>
             }

@@ -17,16 +17,16 @@
         "graphAPI": {
           "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
-          "s3Key": "amplify-builds/graphAPI-2f376d73427443565151-build.zip"
+          "s3Key": "amplify-builds/graphAPI-37464631797a79334c72-build.zip"
         },
         "openai": {
           "secretsPathAmplifyAppId": "dm58qe2yjr7lm",
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
-          "s3Key": "amplify-builds/openai-754678416975656a574b-build.zip"
+          "s3Key": "amplify-builds/openai-5773432f357875696954-build.zip"
         },
         "etl": {
           "deploymentBucketName": "amplify-harmonictakehome-dev-203047-deployment",
-          "s3Key": "amplify-builds/etl-51756c724d2f6c793059-build.zip"
+          "s3Key": "amplify-builds/etl-675371366b766f6f7338-build.zip"
         }
       },
       "auth": {
