@@ -32,7 +32,7 @@ export const QueryPage = () => {
         }        
 
         const { content } = response
-        const split = content.split('2.')
+        const split = content.split('2--')
         if (split.length < 2) {
             console.error('error in splitting')
             setQueryTransformed(content)
@@ -46,7 +46,7 @@ export const QueryPage = () => {
 
     const runQuery = async (query) => {
         setLoading('Running Query...')
-        const data = { query }
+        const data = { query: query }
         const path = '/query'
         const params = {
             body: data
@@ -71,9 +71,23 @@ export const QueryPage = () => {
         setLoading('not')
     }
 
+    const sampleQueries = [
+        "which employees exist and where do or did they work?",
+        "which companies exist?",
+        "which companies were acquired, and by what company?"
+    ]
+
     return (
         <div className='text-white w-full text-center flex flex-col items-center'>
-            <textarea className="bg-slate-800 m-2 w-96	p-2 h-[120px] rounded" type="text" value={queryValue} onChange={(e) => setQueryValue(e.target.value)} placeholder="Type your query..." />
+            <textarea className="bg-slate-800 m-2 w-96	p-2 h-[120px] rounded" type="text" value={queryValue} onChange={(e) => setQueryValue(e.target.value)} placeholder="Type your question..." />
+           
+            <div className='m-4'>
+                <p className='text-slate-300 text-xl'>Sample queries</p>
+                { sampleQueries.map((query, index) => (
+                     <p className='text-blue-500 hover:text-blue-300 cursor-pointer' onClick={() => setQueryValue(query)}>{query}</p>
+                ))}
+               
+            </div>
             {loading !== 'not' ?
                     <button className='cursor-default transition-all m-8 bg-blue-600 py-2 px-4 w-[200px] hover:w-96 h-[40px] rounded '>
                         {loading}

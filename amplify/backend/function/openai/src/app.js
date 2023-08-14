@@ -87,8 +87,8 @@ const getTranslation = async (query) => {
       links together the primary entities via their relations. 
       
       The dataset includes the following entities
-      - Company. properties: company_id(integer), company_name(string)
-      - Person. properties: person_id(integer)
+      - company. properties: company_id(integer), company_name(string)
+      - person. properties: person_id(integer)
       and the following relations
       - acquired (company to company). properties: wasMerger(boolean)
       - employed_at (person to company). properties: start_date(date), end_date(date)
@@ -102,8 +102,8 @@ const getTranslation = async (query) => {
       
       Example:
       Which Microsoft employees used to work at LinkedIn?
-      1. [company = Microsoft] -> employs  ->  ?  -> past work -> [company = LinkedIn]
-      2. MATCH (ms:company {company_name: "Microsoft"})<-[rel:employed_at]-(p:person)-[rel2:employed_at]->(li:company {company_name: "LinkedIn"})
+      1-- [company = Microsoft] -> employs  ->  ?  -> past work -> [company = LinkedIn]
+      2-- MATCH (ms:company {company_name: "Microsoft"})<-[rel:employed_at]-(p:person)-[rel2:employed_at]->(li:company {company_name: "LinkedIn"})
          WHERE rel.end_date IS NULL and rel2.end_date is not null
          RETURN p.person_id
   `
