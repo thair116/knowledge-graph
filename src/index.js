@@ -17,7 +17,7 @@ Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode> 
-    <div className='bg-slate-900 h-screen w-screen flex items-center justify-center'> 
+    <div className='bg-slate-900 h-screen w-screen'> 
     <Authenticator>
       {({ signOut, user }) => (
         <App />

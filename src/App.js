@@ -10,11 +10,21 @@ function App() {
 
   
   return (
-    <div className="App">
-      <button className={"bg-blue-500 mx-2 py-2 px-4 rounded text-white"} onClick={() => setRoute('query')}>Query</button>
-      <button className={"bg-blue-500 mx-2 py-2 px-4 rounded text-white"} onClick={() => setRoute('upload')}>Upload</button>
-      { route === 'query' ? <QueryPage /> : <UploadPage />}
-    </div>
+    <>
+      <div className='flex items-center m-auto justify-center'>
+          <h1 className='text-white text-2xl m-8'>Company Query</h1>
+          { route === 'query' ?
+            <a className='text-blue-500 hover:text-blue-200 cursor-pointer' onClick={() => setRoute('upload')}>Upload</a>
+          :
+          <a className='text-blue-500 hover:text-blue-200 cursor-pointer' onClick={() => setRoute('query')}>Back to query</a>
+          }
+      </div>
+      { route === 'query' ? 
+        <QueryPage/> 
+      : 
+        <UploadPage/>
+      }
+    </>
   );
 }
 

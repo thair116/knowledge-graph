@@ -1,41 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { API } from 'aws-amplify';
-import { ResultDisplay } from './ResultDisplay';
 
 
-export const UploadPage = () => {
-
-    return (
-        <div>
-            <h1>Upload Page</h1>
-            <FileUpload />
-        </div>
-    )
-}
-
-
-const sendDataToServer = async (data) => {
-    const apiName = 'graphREST'
-
-    const body = { fileContents: data}
-    let path = '/upload'
-    let params = { body }
-
-    let response;
-    try {
-        response = await API.post(apiName, path, params)
-    } catch (e) {
-        console.error(e)
-    }
-
-}
-
-
-function FileUpload() {
-    const [selectedFile, setSelectedFile] = useState(null);
+export function UploadPage() {
+    const [loadingState, setLoadingState] = useState('Waiting for file')
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        setLoadingState('Uploading...')
 
         const reader = new FileReader();
 
@@ -44,16 +15,31 @@ function FileUpload() {
         }
 
         reader.readAsText(event.target.files[0]);
-        console.log(event.target.files[0]); // You can handle the file object here
     };
 
+    const sendDataToServer = async (data) => {
+        const apiName = 'graphREST'
+        const path = '/upload'
+        const body = { fileContents: data}
+        const params = { body }
+    
+        let response;
+        try {
+            response = await API.post(apiName, path, params)
+        } catch (e) {
+            console.error(e)
+        }
+        setLoadingState('Done uploading')
+    }
+
     return (
-        <div>
+        <div className='flex flex-col items-center'>
+            <p className='text-slate-300 text-2xl m-2'>{loadingState}</p>
             <input
+                className='text-white'
                 type="file"
                 onChange={handleFileChange}
             />
-            {selectedFile && <p>Selected File: {selectedFile.name}</p>}
         </div>
     );
 }
