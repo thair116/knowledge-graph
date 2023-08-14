@@ -1,20 +1,19 @@
-# The goals
+# Goals
 * a knowledge graph
 * streaming to update the knowledge graph 
 * query for relationship
 
 
 # My strategy 
-### The flow 
+### Process
 1. spec a solution
 2. build it end-to-end
 3. polish and document
 4. share for review 
 
-### The guidelines
+### Our guides
 1. build it usable (deployable) and reusable (scalable) from the start
 2. spec from outside-in 
-4. invest proportional to our confidence
 
 
 # The Spec
@@ -27,7 +26,7 @@
 
 ### The user
 - we know they are part of an investing firm but we don't know their role
-    - are we serving an analyst who serves an LP? most likely the former, but that doesn't mean the LP wouldn't prefer to use it themselves if it was easy/quick enough. Plus if this reduces the need for analysts then it could be worth more $ 
+    - are we serving an LP, or an analyst who serves an LP? most likely the latter, but that doesn't mean the LP wouldn't prefer to use it themselves if it was easy/quick enough. Plus if this reduces the need for analysts then it could be worth more $ 
 - we don't know their technical skill or how much time they would spend on a query 
 - we don't know their primary/secondary devices (desktop, mobile)
 
@@ -46,52 +45,54 @@
 ### The components
 - a UI
     - we must provide a way for the user to tell us their query 
-        options:
-        - visual query builder. display entities as nodes and relationships as edges, then allow user to click through to filter 
-            - best if: user is technical, works on desktop, and has time to spend 
-        - free text input 
-            - best if: large set of expected queries, it works with high accuracy/trust
-        - predefined templates for a limited set of queries
-            - best if: small set of expected queries
-        choice: free text input. if it works well, it will be the best primary input for its easy UX and high flexibility. over time I could see all three working well together, but if we only have one, free text is the one. 
+        - options:
+            - visual query builder. display entities as nodes and relationships as edges, then allow user to click through to filter 
+                - best if: user is technical, works on desktop, and has time to spend 
+            - free text input 
+                - best if: large set of expected queries, it works with high accuracy/trust
+            - predefined templates for a limited set of queries
+                - best if: small set of expected queries
+        - choice: free text input. if it works well, it will be the best primary input for its easy UX and high flexibility. over time I could see all three working well together, but if we only have one, free text is the one. 
 - a datastore
     - the data of the knowledge graph must be stored somewhere
-        options:
-        - graph db. store it in a database that supports graph operations 
-            - best if: you want high query flexibility and high data/usage scalability
-        - files. store as files and read into memory when starting the program. 
-            - best if: dataset is small and not growing, such as a throw-away prototype 
-        - document db
-            - best if: ?
-        - relational db
-            - best if: limited set of exepected queries, afraid of graph dbs or assume we can easily migrate to one later
-        choice: gotta be graph db. not only will it be the most scalable solution, but it will reduce our computational burden upfront by transforming the problem from "map the request to these objects" to "map the request to this Gremlin/SPARQL/Cypher query" 
+        - options:
+            - graph db. store it in a database that supports graph operations 
+                - best if: you want high query flexibility and high data/usage scalability
+            - files. store as files and read into memory when starting the program. 
+                - best if: dataset is small and not growing, such as a throw-away prototype 
+            - document db
+                - best if: ?
+            - relational db
+                - best if: limited set of exepected queries, afraid of graph dbs or assume we can easily migrate to one later
+        - choice: gotta be graph db. not only will it be the most scalable solution, but it will reduce our computational burden upfront by transforming the problem from "map the request to these objects" to "map the request to this Gremlin/SPARQL/Cypher query" 
     - we must choose a query language
-        options:
-        - Gremlin. Medium complexity, direct control of db computation. Compatbile with Cypher
-        - Cypher. Simplest. Imperative. compatabile with Gremlin
-        - SPARQL. Most complicated, doesn't allow properties on edges, mostl used for semantic web datasets
+        - options:
+            - Gremlin. Medium complexity, direct control of db computation. Compatbile with Cypher
+            - Cypher. Simplest. Imperative. compatabile with Gremlin
+            - SPARQL. Most complicated, doesn't allow properties on edges, mostly used for semantic web datasets
+        - choice: start with Gremlin, use Cypher if needed
 - an api
     - we must connect the UI to the datastore
-        forks:
-        - graphQL or not? 
-            - graphQL might make sense for hydrating a rich profile about the entities referenced in the query, but doesn't seem helpful for the query itself
-            - so no
-        - server or serverless?
-            - serverless will be cheaper ($/request instead of $/time) and quicker to deploy 
+        - forks:
+            - graphQL or not? 
+                - graphQL might make sense for hydrating a rich profile about the entities referenced in the query, but doesn't seem helpful for the query itself, so not yet
+            - server or serverless?
+                - serverless will be cheaper ($/request instead of $/time) and quicker to deploy 
     - we must decide API inputs/outputs
-        options:
-        - one (free text) -> (results) api
-            - one less network roundtrip
-        - split into two (free text) -> (query) and (query) -> (results)
-            - provides UI the option to display query
-            - (query) -> (results) api could be reused by the next interface
+        - options:
+            - one (free text) -> (results) api
+                - one less network roundtrip
+            - split into two (free text) -> (query) and (query) -> (results)
+                - provides UI the option to display query
+                - (query) -> (results) api could be reused by the next interface
+        - choice: split into two
     - we must decide loader interface
-        options:
-        - Neptune bulk loader via CSV dropped onto S3
-            - best if we expect really large data ingest files
-        - direct DB inserts
-            - simpler to build and test 
+        - options:
+            - Neptune bulk loader via CSV dropped onto S3
+                - best if we expect really large data ingest files
+            - direct DB inserts
+                - simpler to build and test 
+        - choice: direct DB inserts
 
 ### Steps to build
 1. graph db
