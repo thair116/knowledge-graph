@@ -3,24 +3,32 @@
         "company_id": 1,
         "company_name": "Harmonic",
         "headcount": 25,
-        "website_url": "http://www.harmonic.ai"
+        "website_url": "http://www.harmonic.ai",
+        "source": "crunchbase",
+        "date_added": "2023-01-01T00:00:00.000Z"
     },
     {
         "company_id": 2,
         "company_name": "Harmonic (linkedin duplicate)",
         "headcount": 30,
-        "linkedin_url": "https://www.linkedin.com/company/harmonicai"
+        "linkedin_url": "https://www.linkedin.com/company/harmonicai",
+        "source": "linkedin",
+        "date_added": "2023-01-02T00:00:00.000Z"
     },
     {
         "company_id": 3,
         "company_name": "Harmonic (linkedin duplicate)",
         "headcount": 32,
         "website_url": "http://www.harmonic.ai",
-        "linkedin_url": "https://www.linkedin.com/company/harmonicai"
+        "linkedin_url": "https://www.linkedin.com/company/harmonicai",
+        "source": "scraper",
+        "date_added": "2023-01-03T00:00:00.000Z"
     },
     {
         "company_id": 4,
         "company_name": "Not Harmonic",
-        "headcount": 3
+        "headcount": 3,
+        "source": "crunchbase",
+        "date_added": "2023-01-01T00:00:00.000Z"
     }
 ]
