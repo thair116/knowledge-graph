@@ -1,0 +1,26 @@
+[
+    {
+        "company_id": 1,
+        "company_name": "Harmonic",
+        "headcount": 25,
+        "website_url": "http://www.harmonic.ai"
+    },
+    {
+        "company_id": 2,
+        "company_name": "Harmonic (linkedin duplicate)",
+        "headcount": 30,
+        "linkedin_url": "https://www.linkedin.com/company/harmonicai"
+    },
+    {
+        "company_id": 3,
+        "company_name": "Harmonic (linkedin duplicate)",
+        "headcount": 32,
+        "website_url": "http://www.harmonic.ai",
+        "linkedin_url": "https://www.linkedin.com/company/harmonicai"
+    },
+    {
+        "company_id": 4,
+        "company_name": "Not Harmonic",
+        "headcount": 3
+    }
+]
